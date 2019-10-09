@@ -6,11 +6,14 @@ Created on Wed Oct  9 11:28:53 2019
 @author: z1s1y8
 """
 
-import os
 import pickle
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 
+# Use pickle to lead in the pre-trained model
+with open(f'static/finalized_model.sav', 'rb') as f:
+    loaded_model = pickle.load(f)
 
+# Initialise the Flask app
 app = Flask(__name__)
         
 app.vars={}
@@ -25,8 +28,6 @@ def index():
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
-    filename = os.path.join(app.static_folder, 'finalized_model.sav')
-    loaded_model = pickle.load(open(filename, 'rb'))
     if request.method == 'POST':
         gender = request.form.get('gender')
         education = request.form.get('education')
@@ -53,7 +54,7 @@ def create():
 @app.route('/show', methods=('GET', 'POST'))
 def show():
     result = session['result']
-    return render_template('show.html', result = result)
+    return render_template('show.html', posts = result)
 
 
 if __name__=="__main__":
