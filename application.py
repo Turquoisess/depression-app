@@ -7,7 +7,7 @@ Created on Wed Oct  9 11:28:53 2019
 """
 
 #import os
-from flask import Flask
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -34,6 +34,15 @@ app.config.from_mapping(
 #from . import auth
 #app.register_blueprint(auth.bp)
     
-from . import blog
-app.register_blueprint(blog.bp)
-app.add_url_rule('/', endpoint='index')
+#from . import blog
+#app.register_blueprint(blog.bp)
+#app.add_url_rule('/', endpoint='index')
+        
+app.vars={}
+
+@app.route('/')
+def index():
+    return render_template('blog/index.html')
+
+if __name__=="__main__":
+    app.run(debug=True)
