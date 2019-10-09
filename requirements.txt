@@ -8,4 +8,4 @@ oauth
 oauthlib
 simplejson
 sklearn
-
+LogisticRegression
