@@ -6,37 +6,13 @@ Created on Wed Oct  9 11:28:53 2019
 @author: z1s1y8
 """
 
-#import os
-from flask import Flask, render_template, request, redirect
+import os
+import pickle
+from flask import Flask, render_template, request, redirect, flash, url_for, session
+from sklearn.linear_model import LogisticRegression
+from werkzueg.exceptions import abort
 
 app = Flask(__name__)
-
-#app.config.from_mapping(
-#    SECRET_KEY='dev',
-#    DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-#    )
-#if test_config is None:
-    # load the instance config, if it exists, when not testing
-#    app.config.from_pyfile('config.py', silent=True)
-#else:
-    # load the test config if passed in
-#    app.config.from_mapping(test_config)
-        
-        # ensure the instance folder exists
-#try:
-#    os.makedirs(app.instance_path)
-#except OSError:
-#    pass
-       
-#from . import db
-#db.init_app(app)
-    
-#from . import auth
-#app.register_blueprint(auth.bp)
-    
-#from . import blog
-#app.register_blueprint(blog.bp)
-#app.add_url_rule('/', endpoint='index')
         
 app.vars={}
 
@@ -47,6 +23,42 @@ def main():
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/create', methods=('GET', 'POST'))
+def create():
+    filename = os.path.join(app.static_folder, 'finalized_model.sav')
+    loaded_model = pickle.load(open(filename, 'rb'))
+    if request.method == 'POST':
+        gender = request.form.get('gender')
+        education = request.form.get('education')
+        diet = request.form.get('diet')
+        exercise = request.form.get('exercise')
+        income = request.form.get('income')
+        marriage = request.form.get('marriage')
+        build = request.form.get('build')
+        smoke = request.form.get('smoke')
+        alcohol = request.form.get('alcohol')
+        blopre = request.form.get('blopre')
+        chol = request.form.get('chol')
+        error = None
+        
+        if error is not None:
+            flash(error)
+        else:
+            Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
+            ynew=loaded_model.predict_proba(Xnew)
+            session['result'] = round(float(ynew[0][1]),4)
+            return redirect(url_for('.show'))
+    return render_template('create.html')
+
+@app.route('/show', methods=('GET', 'POST'))
+def show():
+    result = session['result']
+    return render_template('show.html', result = result)
+
+
+
+
 
 if __name__=="__main__":
     app.run(debug=True)
