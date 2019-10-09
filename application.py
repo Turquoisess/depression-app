@@ -40,9 +40,12 @@ app.config.from_mapping(
         
 app.vars={}
 
-@app.route('/')
+def main():
+    return redirect('/index')
+
+@app.route('/index')
 def index():
-    return render_template('blog/index.html')
+    return render_template('index.html')
 
 if __name__=="__main__":
     app.run(debug=True)
