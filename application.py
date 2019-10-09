@@ -8,11 +8,11 @@ Created on Wed Oct  9 11:28:53 2019
 
 import pickle
 from flask import Flask, render_template, request, redirect, flash, url_for, session
-
+'''
 # Use pickle to lead in the pre-trained model
 with open(f'static/finalized_model.sav', 'rb') as f:
     loaded_model = pickle.load(f)
-
+'''
 # Initialise the Flask app
 app = Flask(__name__)
         
