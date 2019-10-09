@@ -7,7 +7,7 @@ Created on Mon Sep 23 14:20:09 2019
 import os
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app as app
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app as app
 )
 from werkzeug.exceptions import abort
 
@@ -21,14 +21,9 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, score, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('blog/index.html', posts=posts)
-
+    
+    return render_template('blog/index.html')
+'''
 @bp.route('/show', methods=('GET', 'POST'))
 @login_required
 def show():
@@ -90,3 +85,4 @@ def get_post(id, check_author=True):
         abort(403)
 
     return post
+'''
