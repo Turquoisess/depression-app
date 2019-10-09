@@ -25,7 +25,7 @@ def main():
 @app.route('/index')
 def index():
     return render_template('index.html')
-
+'''
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
@@ -55,7 +55,7 @@ def create():
 def show():
     result = session['result']
     return render_template('show.html', posts = result)
-
+'''
 
 if __name__=="__main__":
     app.run(debug=True)
