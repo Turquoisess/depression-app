@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Depression distribution (depressed samples/total samples) among 9 categories:{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('blog.create') }}">New inquiry</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <img src="https://github.com/Turquoisess/BRFSS_Depression/blob/master/Plot_Depression%20Distribution.jpg?raw=true" alt="me" style="width:900px;height:600px;">
+{% endblock %}
