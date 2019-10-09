@@ -9,8 +9,7 @@ Created on Wed Oct  9 11:28:53 2019
 import os
 import pickle
 from flask import Flask, render_template, request, redirect, flash, url_for, session
-from sklearn.linear_model import LogisticRegression
-from werkzueg.exceptions import abort
+
 
 app = Flask(__name__)
         
@@ -55,9 +54,6 @@ def create():
 def show():
     result = session['result']
     return render_template('show.html', result = result)
-
-
-
 
 
 if __name__=="__main__":
