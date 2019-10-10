@@ -7,7 +7,7 @@ Created on Wed Oct  9 11:28:53 2019
 """
 
 import pickle
-from flask import Flask, render_template, request, redirect, flash, url_for, session
+from flask import Flask, render_template, request, redirect, flash, url_for
 
 
 
