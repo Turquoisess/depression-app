@@ -53,14 +53,14 @@ def create():
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
             '''
-            session['result'] = 0.0025
-            return redirect(url_for('show'))
+            result = 0.0025
+            render_template('show.html', result = result)
     return render_template('create.html')
-
+'''
 @app.route('/show', methods=('GET', 'POST'))
 def show():
     result = session['result']
     return render_template('show.html', result = result)
-
+'''
 if __name__=="__main__":
     app.run(debug=True)
