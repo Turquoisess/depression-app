@@ -6,13 +6,11 @@
 {% endblock %}
 
 {% block content %}
+<br>
+<div class="result" align="center">
   {% if result %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>Your chance of having depression is {{ result*100 }}%</h1>
-        </div>
-      </header>
-    </article>
+        <br> Predicted chance of having depression:
+              <p style="font-size:50px">{{ result*100 }}%</p>
   {% endif %}
+</div>
 {% endblock %}

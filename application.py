@@ -26,6 +26,8 @@ def index():
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
+    with open(f'static/finalized_model.pkl', 'rb') as f:
+        loaded_model = pickle.load(f)
     if request.method == 'POST':
         gender = request.form.get('gender')
         education = request.form.get('education')
@@ -47,20 +49,18 @@ def create():
             flash(error)
         else:
             '''
-            with open(f'static/finalized_model.pkl', 'rb') as f:
-                loaded_model = pickle.load(f)
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
             '''
-            result = 0.0025
-            render_template('show.html', result = result)
+            session['result'] = 0.0025
+            return redirect(url_for('show'))
     return render_template('create.html')
-'''
+
 @app.route('/show', methods=('GET', 'POST'))
 def show():
-    result = session['result']
+    result = 0.0025
     return render_template('show.html', result = result)
-'''
+
 if __name__=="__main__":
     app.run(debug=True)
