@@ -54,7 +54,7 @@ def create():
 @app.route('/show', methods=('GET', 'POST'))
 def show():
     result = session['result']
-    return render_template('show.html', posts = result)
+    return render_template('show.html', result = result)
 
 if __name__=="__main__":
     app.run(debug=True)

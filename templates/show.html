@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
+{% block header %}
+  <h1>{% block title %}Here is your inquiry histroy: {% endblock %}</h1>
+  <a class="action" href="{{ url_for('create') }}">New inquiry</a>
+{% endblock %}
+
 {% block content %}
+  {% if result %}
     <article class="post">
       <header>
         <div>
-          <h1>Your chance of having depression is {{ posts *100 }}%</h1>
+          <h1>Your chance of having depression is {{ result*100 }}%</h1>
         </div>
       </header>
     </article>
-
+  {% endif %}
 {% endblock %}
