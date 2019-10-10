@@ -26,8 +26,7 @@ def index():
 
 @app.route('/show', methods=('GET', 'POST'))
 def show():
-    result = 0.0025
-    result = request.args['result']
+    result = float(request.args['result'])
     return render_template('show.html', result = result)
 
 
@@ -50,15 +49,12 @@ def create():
         if error is not None:
             flash(error)
         else:
-            '''
             # Use pickle to lead in the pre-trained model
             with open(f'static/finalized_model.pkl', 'rb') as f:
                 loaded_model = pickle.load(f)                
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
-            session['result'] = round(float(ynew[0][1]),4)
-            '''
-            result = 0.2548
+            result = round(float(ynew[0][1]),4)
             return redirect(url_for('show', result = result))
     return render_template('create.html')
 
