@@ -7,4 +7,4 @@ jinja2
 oauth
 oauthlib
 simplejson
-sklearn==0.20.1
+sklearn
