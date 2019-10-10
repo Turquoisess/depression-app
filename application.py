@@ -51,10 +51,10 @@ def create():
         else:
             # Use pickle to lead in the pre-trained model
             with open(f'static/finalized_model.pkl', 'rb') as f:
-                loaded_model = pickle.load(f)
-                '''
+                loaded_model = pickle.load(f)                
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
+            '''
             session['result'] = round(float(ynew[0][1]),4)
             session['result'] = 0.0025
             '''
