@@ -18,7 +18,7 @@ app.vars={}
 
 @app.route('/')
 def main():
-    return redirect('/index')
+    return redirect('index')
 
 @app.route('/index')
 def index():
@@ -26,8 +26,6 @@ def index():
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
-    with open(f'static/finalized_model.pkl', 'rb') as f:
-        loaded_model = pickle.load(f)
     if request.method == 'POST':
         gender = request.form.get('gender')
         education = request.form.get('education')
@@ -43,8 +41,8 @@ def create():
         error = None
         
         # Use pickle to lead in the pre-trained model
-
-    
+        with open(f'static/finalized_model.pkl', 'rb') as f:
+        loaded_model = pickle.load(f)
         if error is not None:
             flash(error)
         else:
