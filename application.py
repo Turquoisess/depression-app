@@ -9,9 +9,7 @@ Created on Wed Oct  9 11:28:53 2019
 import pickle
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 
-# Use pickle to lead in the pre-trained model
-with open(f'static/finalized_model.pkl', 'rb') as f:
-    loaded_model = pickle.load(f)
+
 
 # Initialise the Flask app
 app = Flask(__name__)
@@ -42,12 +40,20 @@ def create():
         chol = request.form.get('chol')
         error = None
         
+        # Use pickle to lead in the pre-trained model
+
+    
         if error is not None:
             flash(error)
         else:
+            '''
+            with open(f'static/finalized_model.pkl', 'rb') as f:
+                loaded_model = pickle.load(f)
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
+            '''
+            session['result'] = 0.0025
             return redirect(url_for('show'))
     return render_template('create.html')
 
