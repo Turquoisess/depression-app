@@ -25,7 +25,7 @@ def main():
 @app.route('/index')
 def index():
     return render_template('index.html')
-'''
+
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
@@ -48,14 +48,13 @@ def create():
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
-            return redirect(url_for('.show'))
+            return redirect(url_for('show'))
     return render_template('create.html')
 
 @app.route('/show', methods=('GET', 'POST'))
 def show():
     result = session['result']
     return render_template('show.html', posts = result)
-'''
 
 if __name__=="__main__":
     app.run(debug=True)
