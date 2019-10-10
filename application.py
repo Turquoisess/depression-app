@@ -27,7 +27,7 @@ def index():
 @app.route('/show', methods=('GET', 'POST'))
 def show():
     result = 0.0025
-    result = session['result']
+    result = request.args['result']
     return render_template('show.html', result = result)
 
 
@@ -58,8 +58,8 @@ def create():
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
             '''
-            session['result'] = 0.2548
-            return redirect(url_for('show'))
+            result = 0.2548
+            return redirect(url_for('show', result = result))
     return render_template('create.html')
 
 
