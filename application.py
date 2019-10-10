@@ -18,11 +18,17 @@ app.vars={}
 
 @app.route('/')
 def main():
-    return redirect('index')
+    return redirect('/index')
 
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/show', methods=('GET', 'POST'))
+def show():
+    result = 0.0025
+    return render_template('show.html', result = result)
+
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
@@ -40,25 +46,22 @@ def create():
         chol = request.form.get('chol')
         error = None
         
-        # Use pickle to lead in the pre-trained model
-        with open(f'static/finalized_model.pkl', 'rb') as f:
-        loaded_model = pickle.load(f)
         if error is not None:
             flash(error)
         else:
             '''
+            # Use pickle to lead in the pre-trained model
+            with open(f'static/finalized_model.pkl', 'rb') as f:
+                loaded_model = pickle.load(f)
             Xnew=[[float(gender),float(education),float(diet),float(exercise),float(income),float(marriage),float(build),float(smoke),float(alcohol),float(blopre),float(chol)]]
             ynew=loaded_model.predict_proba(Xnew)
             session['result'] = round(float(ynew[0][1]),4)
-            '''
             session['result'] = 0.0025
+            '''
             return redirect(url_for('show'))
     return render_template('create.html')
 
-@app.route('/show', methods=('GET', 'POST'))
-def show():
-    result = 0.0025
-    return render_template('show.html', result = result)
+
 
 if __name__=="__main__":
     app.run(debug=True)
